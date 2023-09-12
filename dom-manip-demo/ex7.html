@@ -1,0 +1,51 @@
+<!--
+Exercise 7: Displaying Elements Conditionally
+Objective: Understand conditional rendering of elements.
+
+Create an HTML page with a "Show/Hide Hint" button.
+Initially, an image or some text should be hidden.
+When the button is clicked, show the image/text if it's 
+hidden and vice versa.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show/Hide Hint</title>
+  <style>
+    /* Add some basic styling to the hidden image */
+    #image {
+      display: none; /* Initially hidden */
+      max-width: 300px; /* Set the maximum width as needed */
+    }
+  </style>
+</head>
+<body>
+  <h1>Click for a surprise!</h1>
+  <button id="toggleButton" onclick="toggleImage()">Show/Hide Image</button>
+  <img id="image" src="cat.png" alt="AHHHHHHH">
+
+  <script>
+    // Function to toggle the visibility of the image
+    function toggleImage() {
+      const imageElement = document.getElementById('image');
+
+      // Toggle the visibility using the "style.display" property
+      if (imageElement.style.display === 'none' || imageElement.style.display === '') {
+        imageElement.style.display = 'block'; // Show the image
+      } else {
+        imageElement.style.display = 'none'; // Hide the image
+      }
+    }
+
+    // Add an event listener to the document to listen for the Enter key press
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        toggleImage(); // Call the function to toggle the image
+      }
+    });
+  </script>
+</body>
+</html>

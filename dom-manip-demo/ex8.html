@@ -1,0 +1,73 @@
+<!--
+Exercise 8: Building Arrays Dynamically
+Objective: Dynamically add items to an array based on user input.
+
+Create an HTML page with an input field and a button.
+Users should enter words, and when they press the button, add the word to an array.
+Display the list of words below in a ul.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Array Builder</title>
+</head>
+<body>
+  <h1>Dynamic Array Builder</h1>
+  
+  <!-- Input field for user to enter words -->
+  <input type="text" id="wordInput" placeholder="Enter a word">
+  <button id="addWordButton">Add Word</button>
+  
+  <!-- Display the list of words in a ul -->
+  <ul id="wordList"></ul>
+
+  <script>
+    // JavaScript code to handle user input and dynamically build the array
+    
+    // Initialize an empty array to store words
+    const wordsArray = [];
+    
+    // Function to update the list of words displayed
+    function updateWordList() {
+      const wordList = document.getElementById("wordList");
+      wordList.innerHTML = ""; // Clear the current list
+
+      // Iterate through the array and add each word as a list item
+      for (const word of wordsArray) {
+        const listItem = document.createElement("li");
+        listItem.textContent = word;
+        wordList.appendChild(listItem);
+      }
+    }
+
+    // Get the input field and button
+    const wordInput = document.getElementById("wordInput");
+    const addWordButton = document.getElementById("addWordButton");
+
+    // Add an event listener to the button
+    addWordButton.addEventListener("click", function () {
+      addWord();
+    });
+
+    // Add an event listener to the input field for Enter key press
+    wordInput.addEventListener("keyup", function (event) {
+      if (event.key === "Enter") {
+        addWord();
+      }
+    });
+
+    // Function to add a word to the array
+    function addWord() {
+      const newWord = wordInput.value.trim(); // Get the input value and remove leading/trailing whitespace
+      if (newWord !== "") {
+        wordsArray.push(newWord); // Add the word to the array
+        wordInput.value = ""; // Clear the input field
+        updateWordList(); // Update the displayed list of words
+      }
+    }
+
+  </script>
+</body>
+</html>

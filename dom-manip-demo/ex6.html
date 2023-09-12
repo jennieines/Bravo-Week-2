@@ -1,0 +1,99 @@
+<!-- 
+Exercise 6: Simple Word Guess
+Objective: Basic string manipulation and comparison.
+
+Prepare a list of words in a JavaScript array.
+Create an HTML page with an input box and a "Guess" button.
+The user should guess the word. After a guess, inform the user if they're correct or not.
+For added complexity, show a hint (e.g., "It's a fruit").
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Guessing Game</title>
+</head>
+<body>
+  <h1>Word Guessing Game</h1>
+  <p>Guess the word:</p>
+  <input type="text" id="guessInput">
+  <button onclick="checkGuess()">Guess</button>
+  <p id="message"></p>
+
+  <h2>Words to Guess From:</h2>
+  <ul id="wordList">
+    <!-- Words will be dynamically added here -->
+  </ul>
+
+  <script>
+    // List of words and their corresponding hints
+    const words = [
+      { word: 'apple', hint: 'It\'s a fruit' },
+      { word: 'banana', hint: 'It\'s yellow' },
+      { word: 'carrot', hint: 'It\'s a vegetable' },
+      { word: 'cat', hint: 'It\'s a pet' },
+      // Add more words and hints as needed
+    ];
+
+    let currentWord;
+    let hint;
+
+    // Function to pick a random word from the list
+    function pickRandomWord() {
+      const randomIndex = Math.floor(Math.random() * words.length);
+      currentWord = words[randomIndex].word;
+      hint = words[randomIndex].hint;
+    }
+
+    // Function to populate the list of words on the webpage
+    function populateWordList() {
+      const wordList = document.getElementById('wordList');
+      wordList.innerHTML = ''; // Clear existing list items
+
+      for (const wordObj of words) {
+        const listItem = document.createElement('li');
+        listItem.textContent = wordObj.word;
+        wordList.appendChild(listItem);
+      }
+    }
+
+    // Function to check the user's guess
+    function checkGuess() {
+      const guessInput = document.getElementById('guessInput');
+      const message = document.getElementById('message');
+      const userGuess = guessInput.value.toLowerCase();
+
+      if (userGuess === currentWord) {
+        message.textContent = 'Correct! You guessed the word.';
+        pickRandomWord(); // Call pickRandomWord only if the guess is correct
+      } else {
+        message.textContent = 'Incorrect. Try again.';
+        if (hint) {
+          message.textContent += ' Hint: ' + hint;
+        }
+      }
+
+      // Clear the input field
+      guessInput.value = '';
+    }
+
+    // Wait for the DOM to be fully loaded before adding the event listener
+    document.addEventListener('DOMContentLoaded', function() {
+      populateWordList(); // Populate the list of words on page load
+
+      const guessInput = document.getElementById('guessInput');
+      guessInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          checkGuess(); // Call the function to check the guess
+          event.preventDefault(); // Prevent the default form submission behavior
+        }
+      });
+
+      // Initialize the game by picking a random word
+      pickRandomWord();
+    });
+  </script>
+</body>
+</html>
