@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wordle Game</title>
+    <title>Wordle</title>
     <link rel="stylesheet" href="wordle.css">
+    <script src="wordle.js"></script>
 </head>
 <body>
-    <h1>Wordle Game</h1>
+    <h1 id="title">Wordle</h1>
+    <hr>
+    <br>
     
-        
-    <input type="text" id="guessInput" placeholder="Enter your guess">
-    <button onclick="submitGuess">Submit</button>
+    <!-- Display the list of words in a div -->
+    <div id="board"></div>
 
-    <script src="wordle.js"></script>
+    <br>
+    <h1 id="answer"></h1>
 </body>
 </html>
+

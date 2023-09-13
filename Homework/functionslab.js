@@ -13,15 +13,15 @@ let book1 = {
 
   let book2 = {
     title: 'Calendar Girl',
-    author: 'Audrey Carlan'
-    bookId: '346'
+    author: 'Audrey Carlan',
+    bookId: '346',
     availability: true
   };
 
   let book3 = {
-    title: 'Harry Potter'
-    author: 'J.K. Rowling
-    bookId: '347'
+    title: 'Harry Potter',
+    author: 'J.K. Rowling',
+    bookId: '347',
     availability: true
   }
   
@@ -30,9 +30,9 @@ let book1 = {
   // Create an array of books which will act as the library's collection.
   // Populate the array with 3-5 book objects as defined in Task 1.
   
-  const library = [book1, book2, book3
+  const library = [book1, book2, book3];
     // Add book objects here
-  ];
+
   
   
   // Task 3: Add a Book to the Collection
@@ -74,7 +74,13 @@ let book1 = {
   // Write a function `displayBooks` which displays the entire collection of books.
   
   function displayBooks() {
-    // your code here
+    library.forEach(book => {
+      console.log(`Title: ${book.title}`);
+      console.log(`Author: ${book.author}`);
+      console.log(`Book ID: ${book.bookId}`);
+      console.log(`Availability: ${book.availability ? 'Available' : 'Not Available'}`);
+      console.log('---');
+  });
   }
   
   
@@ -82,8 +88,43 @@ let book1 = {
   // Use the functions you have written to add, remove, find, and display books in the collection.
   // Predict the outcomes before you run the code and compare the results to your predictions.
   
-  
-  
+  // Display the initial collection of books
+console.log("Initial Collection:");
+displayBooks();
+
+// Add a new book
+const newBook = {
+    title: 'You Are a Badass',
+    author: 'Jen Sincero',
+    bookId: '348',
+    availability: true
+};
+addBook(newBook);
+console.log("\nAfter Adding a New Book:");
+displayBooks();
+
+// Remove a book by Book ID
+const bookIdToRemove = '345'; // Change this to the book ID you want to remove
+removeBook(bookIdToRemove);
+console.log("\nAfter Removing a Book:");
+displayBooks();
+
+// Find books by title or author
+const searchQuery = 'Harry Potter'; // Change this to your search query
+const foundBooks = findBook(searchQuery);
+
+console.log(`\nBooks Found with Search Query "${searchQuery}":`);
+if (foundBooks.length === 0) {
+  console.log('No matching books found.');
+} else {
+  foundBooks.forEach(book => {
+    console.log(`Title: ${book.title}`);
+    console.log(`Author: ${book.author}`);
+    console.log(`Book ID: ${book.bookId}`);
+    console.log(`Availability: ${book.availability ? 'Available' : 'Not Available'}`);
+    console.log('---');
+  });
+}
   
   // Extended Tasks
   
@@ -92,8 +133,11 @@ let book1 = {
   // of the corresponding book in the collection.
   
   function toggleAvailability(bookId) {
-    // your code here
-  }
+    const book = library.find(book => book.bookId === bookId);
+    if (book) {
+        book.availability = !book.availability;
+    }
+    }
   
   
   // Task 9: Multiple Copies
@@ -101,16 +145,28 @@ let book1 = {
   // Update your `addBook` function to increment the `copies` property if the book already exists in the collection, 
   // instead of adding a duplicate entry.
   function addBook(book) {
-    // your updated code here
-  }
+    const existingBook = library.find(existingBook => existingBook.bookId === book.bookId);
+    if (existingBook) {
+        existingBook.copies++;
+    } else {
+        book.copies = 1; // Initialize copies to 1 for new books
+        library.push(book);
+    } 
+   }
   
   // Task 10: Advanced Search
   // Extend the `findBook` function to also search by the number of copies available, so it can find all books that have at least a certain number of copies.
   // Also, allow it to accept an array of queries for more complex search scenarios.
   
   function findBook(query) {
-    // your updated code here
-  }
+    query = query.toLowerCase();
+  return library.filter(book => {
+    return (
+      book.title.toLowerCase().includes(query) ||
+      book.author.toLowerCase().includes(query)
+    );
+  });
+}
   
   
   // Task 11: Book Ratings
@@ -118,13 +174,23 @@ let book1 = {
   // Write a function called `setRating` that takes a Book ID and a rating as arguments and sets the rating of the corresponding book.
   
   function setRating(bookId, rating) {
-    // your code here
-  }
+    const book = library.find(book => book.bookId === bookId);
+    if (book && rating >= 0 && rating <= 5) {
+        book.rating = rating;
+    }
+    }
   
   
   // Task 12: Summary Function
   // Write a function called `librarySummary` that provides a summary of the library. 
   // It should display the total number of books, the total number of available books, and the average rating of all books.
   function librarySummary() {
-    // your code here
-  }
+    const totalBooks = library.length;
+    const totalAvailableBooks = library.filter(book => book.availability).length;
+    const totalRatings = library.reduce((sum, book) => (sum + (book.rating || 0)), 0);
+    const averageRating = totalRatings / totalBooks || 0;
+    
+    console.log(`Total Books: ${totalBooks}`);
+    console.log(`Total Available Books: ${totalAvailableBooks}`);
+    console.log(`Average Rating: ${averageRating.toFixed(2)}`);
+    }
