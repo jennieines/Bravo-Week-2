@@ -1,6 +1,6 @@
-//let myArray = ["pizza", "apple", "grape", "chair", "about"];
-//let randomIndex = Math.floor(Math.random() * myArray.length);
-//let randomWord = myArray[randomIndex];
+let myArray = ["PIZZA", "APPLE", "GRAPE", "CHAIR", "BEACH"];
+let randomIndex = Math.floor(Math.random() * myArray.length);
+let randomWord = myArray[randomIndex];
 
 
 var height = 6; // Number of guesses
@@ -10,7 +10,7 @@ var row = 0; // Current guess (attempt 0)
 var col = 0; // Current letter for that attempt
 
 var gameOver = false;
-var word = "HAPPY";
+let word = randomWord;
 
 window.onload = function() {
     initialize();
