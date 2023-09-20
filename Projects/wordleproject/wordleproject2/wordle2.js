@@ -1,84 +1,27 @@
-//G = green 
+let words = ["APPLE", "BEACH", "PIZZA", "GRAPE", "CHAIR", "CHICK", "TABLE", "DRINK", "CROWN"];
+let wordToGuess = Math.floor(Math.random() * words.length);
+let randomWord = words[wordToGuess];
+let word = randomWord;
 
-let word1 = "apple"
-let guess1 = "apply"
 
-//console.log("GGGGX");
+function checkWord(guess) {
+if (guess.toLowerCase() === word) {
+  alert("Congratulations! You guessed the word: " + wordToGuess);
 
-//compare two words to each other
-//console.log a string representing which letters match
+} else {
+  console.log("Incorrect guess: " + guess);
 
-let word2 = "plays"
-let guess2 = "ponds"
-
-//console.log("GXXXG");
-
-let word3 = "ducks";
-let guess3 = "cakes";
-
-//console.log("YXYXG");
-
-function checkGuess(secretWord, guess) {
-  //create a variable to build our result string in
-  let result = ""; 
-  //loop through each letter of the guess
-  for (let i = 0; i < guess.length; i++) {
-     //check if letters at current position match
-    if (guess[i] == secretWord[i]) {
-    //if so, add "G" to my result string
-        result += "G"; 
-        //if not, check if letter in guess is in word at all
-    } else if (secretWord.includes(guess[i])) {
-    //if so, add "Y" to my result string 
-        result += "Y";
-    } else {//if not
-    //add "X" to my result string
-    result += "X"
-}
-  }
-  //log out the result string
-  console.log(result);
+    }
 }
 
-//checkGuess(word1, guess1)
-// //"GGGGX"
+let guessInput = document.getElementById("guess-input");
+let guessButton = document.getElementById("guess-button");
 
-checkGuess(word2, guess2)
-// //"GXXXG"
-
-// checkGuess(word3, guess3)
-// // "YXYXG"
-
-// let myLetter = "A"
-
-// if (myLetter.toLowerCase() == "a") {
-//   console.log("message");
-// }
-
-// let resultString = "";
-// let myWord = "alone";
-// let vowels = "aeiou";
-
-// for (let i = 0; i < myWord.length; i++) { //loop through word
-//   if (vowels.includes(myWord[i])) { //check on a particular condition
-//     resultString += myWord[i] //add something onto a string if condition is met
-//   } else {
-//     resultString += "_"; //if condition not met, add something else to string
-//   }
-// }
-// console.log(resultString);//log out the resulting string
+guessButton.addEventListener("click", function() {
+  let guess = guessInput.value.toLowerCase();
+  checkWord(guess);
+});
+// let currentRow = document.getElementById(`row${guess}`)
+// let letters = currentRow.children;
 
 
-// function greeting(name) {
-//   console.log("Hello " + name);
-// }
-
-// greeting("Cody");
-
-// let myName = "Timmy"
-
-// greeting(myName);
-
-// // a + 2b + 3c
-
-// // a = 1, b = 5, c = 4
