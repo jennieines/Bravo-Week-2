@@ -2,8 +2,10 @@
 let words = ["APPLE", "BEACH", "PIZZA", "GRAPE", "CHAIR", "CHICK", "TABLE", "DRINK", "CROWN"];
 
 // Choose a random word from the array
-let wordToGuess = words[Math.floor(Math.random() * words.length)];
+//let wordToGuess = words[Math.floor(Math.random() * words.length)];
+let wordToGuess = "CHICK";
 let word = wordToGuess;
+
 
 // Define the number of allowed guesses
 let maxGuesses = 6;
@@ -11,15 +13,21 @@ let guessesLeft = maxGuesses;
 
 
 // Function to check if the guessed letter is correct
-function checkGuess(letter) {
-  let isCorrect = false;
+function checkGuess(newGuess) {
+  let correctGuesses = []
+
   for (let i = 0; i < word.length; i++) {
-    if (word[i] === letter) {
-      correctGuesses[i] = true;
-      isCorrect = true;
+    if (word[i] === newGuess[i]) {
+      correctGuesses.push("Green");
+    
+    } else if (word.includes(newGuess[i])) {
+      correctGuesses.push("Yellow");
+    } else {
+      correctGuesses.push("Grey");
     }
-  }
-  return isCorrect;
+  } 
+  console.log(correctGuesses);
+  return correctGuesses;
 }
 
 // Function to display the current state of the word
@@ -39,8 +47,8 @@ function displayWord() {
 function handleGuess() {
   let guessInput = document.getElementById("guess-input");
   let guess = guessInput.value.toUpperCase();
+  console.log(guess);
 
-  if (guess.length === 1 && /^[A-Z]$/.test(guess)) {
     if (checkGuess(guess)) {
       // Correct guess
       let displayedWord = displayWord();
@@ -61,14 +69,12 @@ function handleGuess() {
         alert("Incorrect guess. " + guessesLeft + " guesses left.");
       }
     }
-  } else {
-    // Invalid input
-    alert("Please enter a single uppercase letter.");
-  }
+  
 
   // Clear the input field
   guessInput.value = "";
-}
+
+  }
 
   // Attach an event listener to the guess button
 let guessButton = document.getElementById("guess-button");
